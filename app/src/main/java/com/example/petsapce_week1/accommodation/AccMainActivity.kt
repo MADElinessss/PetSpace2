@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.example.petsapce_week1.ProfileMenuFragment
 import com.example.petsapce_week1.R
 import com.example.petsapce_week1.accommodation.scroll.AccFacilityMoreActivity
+import com.example.petsapce_week1.accommodation.scroll.AccHostViewMoreActivity
 import com.example.petsapce_week1.accommodation.scroll.googleFragment
 import com.example.petsapce_week1.accommodation.scroll.reviewFragment
 import com.example.petsapce_week1.databinding.ActivityAccHostBinding
@@ -39,6 +40,7 @@ class AccMainActivity : AppCompatActivity() {
     var imgdataList = ArrayList<imageSlideData>()
     val reviewList = mutableListOf<FacilityData>()
     var photos = mutableListOf<String>()
+    lateinit var hostname : String
 
     lateinit var roomId: String
 
@@ -90,9 +92,6 @@ class AccMainActivity : AppCompatActivity() {
 
         initViewPager()
 
-        //val data = AccomodationRoomData(roomId = null)
-//        val roomId : Long = intent.getLongExtra("content", -1)
-//        Log.d("숙소 roomId", roomId.toString())
 
         // =================== 백엔드 연동 부분 =====================
         //홈화면 연결 후 roomId 받아오면 반영!
@@ -202,6 +201,8 @@ class AccMainActivity : AppCompatActivity() {
                     binding.frameHost.tvMaxguest.text = "최대 인원 ${body.result.maxGuest}명 "
                     binding.frameHost.textAbout.text = body.result.roomDecription
 
+                    hostname = body.result.hostName
+
                 }
                 // ================ facility 편의시설 프레임 =====================
                 response.takeIf { it.isSuccessful }
@@ -266,15 +267,26 @@ class AccMainActivity : AppCompatActivity() {
             }
         })
 
-        supportFragmentManager
-            .beginTransaction()
-            .replace(binding.frameGoogle.id, googleFragment(roomBeforeID.toLong()))
-            .commitAllowingStateLoss()
+        accessToken?.let { googleFragment(roomBeforeID.toLong(), accessToken = it) }?.let {
+            supportFragmentManager
+                .beginTransaction()
+                .replace(binding.frameGoogle.id,
+                    it
+                )
+                .commitAllowingStateLoss()
+        }
 
         supportFragmentManager
             .beginTransaction()
-            .add(binding.frameReview.id, reviewFragment(roomBeforeID.toLong()))
+            .add(binding.frameReview.id, reviewFragment(roomBeforeID.toLong(), accessToken!!))
             .commitAllowingStateLoss()
+
+        binding.frameHost.tvViewmore.setOnClickListener {
+            Log.d("호스트 더보기", "clicked")
+            val intent = Intent(this, AccHostViewMoreActivity::class.java)
+            intent.putExtra("name", hostname)
+            startActivity(intent)
+        }
 
         binding.frameFacility.tvViewmore.setOnClickListener {
             val intent = Intent(this@AccMainActivity, AccFacilityMoreActivity::class.java)
@@ -322,16 +334,16 @@ class AccMainActivity : AppCompatActivity() {
         }
 
         //기존 adapter(recyclerview adpater)
-       /* binding.recyclerviewSlide.layoutManager = LinearLayoutManager(
-            this, LinearLayoutManager.HORIZONTAL, false
-        )
-        adapter = accImgaeSlideAdapter(imgdataList)
-        binding.recyclerviewSlide.adapter = adapter*/
+        /* binding.recyclerviewSlide.layoutManager = LinearLayoutManager(
+             this, LinearLayoutManager.HORIZONTAL, false
+         )
+         adapter = accImgaeSlideAdapter(imgdataList)
+         binding.recyclerviewSlide.adapter = adapter*/
 
 
-       /* adapter.itemClickListener = object : accImgaeSlideAdapter.OnItemClickListener {
-            override fun OnItemClick(data: imageSlideData) {
-                *//*  Toast.makeText(getActivity(),"show", Toast.LENGTH_SHORT).show()
+        /* adapter.itemClickListener = object : accImgaeSlideAdapter.OnItemClickListener {
+             override fun OnItemClick(data: imageSlideData) {
+                 *//*  Toast.makeText(getActivity(),"show", Toast.LENGTH_SHORT).show()
                    val intent = packageManager.getLaunchIntentForPackage(data.appackname)
                    startActivity(intent)*//*
                 val intent = Intent(this@AccMainActivity, GifActivity::class.java)
