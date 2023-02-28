@@ -5,14 +5,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
+        app:layout_constraintTop_toTopOf="parent"
         android:id="@+id/review_fixed_upper_bar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:orientation="horizontal"
+        android:background="@color/white"
         >
 
         <ImageButton
-            android:id="@+id/btn_facilites_close"
+            android:id="@+id/btn_back"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginStart="20dp"
@@ -43,7 +45,8 @@
     <ScrollView
         app:layout_constraintTop_toBottomOf="@id/review_line"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:layout_marginTop="61dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -123,46 +126,16 @@
                     android:layout_weight="1"
                     />
 
-                <LinearLayout
-                    android:layout_marginRight="20dp"
-                    android:id="@+id/review_rating"
+                <RatingBar
+                    android:id="@+id/ratingBar"
+                    style="@style/Widget.AppCompat.RatingBar.Small"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:id="@+id/img_start1"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_weight="1"
-                        app:srcCompat="@drawable/material_symbols_star_rate_rounded" />
-
-                    <ImageView
-                        android:id="@+id/img_start2"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_weight="1"
-                        app:srcCompat="@drawable/material_symbols_star_rate_rounded" />
-
-                    <ImageView
-                        android:id="@+id/img_star3"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_weight="1"
-                        app:srcCompat="@drawable/material_symbols_star_rate_rounded" />
-
-                    <ImageView
-                        android:id="@+id/img_star4"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_weight="1"
-                        app:srcCompat="@drawable/material_symbols_star_rate_rounded" />
-
-                    <ImageView
-                        android:id="@+id/img_star5"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/star_half" />
-                </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="24.12dp"
+                    android:isIndicator="false"
+                    android:progressTint="@color/red"
+                    android:rating="0"
+                    android:stepSize="1" />
             </LinearLayout>
 
             <LinearLayout
@@ -193,6 +166,7 @@
                 android:layout_height="wrap_content">
 
                 <EditText
+                    app:layout_constraintTop_toTopOf="parent"
                     android:id="@+id/review_input"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
@@ -204,11 +178,12 @@
                     />
 
                 <TextView
+                    android:id="@+id/wordcount_review"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:paddingEnd="20dp"
-                    android:text="675/1000"
+                    android:text="0/1000"
                     android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/review_input" />
@@ -245,15 +220,34 @@
                     android:textColor="@color/red"/>
             </LinearLayout>
 
-            <ImageButton
-                android:layout_marginStart="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/photo_input"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/open_gallery"
+                    android:layout_marginStart="20dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/photo_input"/>
+
+                <ImageView
+                    android:id="@+id/selected_image"
+                    android:layout_marginStart="10dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"/>
+
+                <!--                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/review_rv"
+                                    android:layout_marginStart="10dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="80dp"
+                                    android:layout_marginEnd="20dp"/>-->
+            </LinearLayout>
+
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnReviewCreate"
-                android:enabled="false"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginBottom="30dp"
                 android:layout_marginTop="20dp"
@@ -264,7 +258,6 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:text="리뷰 작성하기"
-                android:textAllCaps="false"
                 android:textColor="#EEF5F5"
                 android:textSize="16dp"
                 />

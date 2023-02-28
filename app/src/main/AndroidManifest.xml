@@ -4,6 +4,13 @@
     <!-- 인터넷 사용 권한 설정 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
 
     <application
         android:name=".loginrelated.GlobalApplictation"
@@ -15,48 +22,68 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PetSapce_week1"
+        android:usesCleartextTraffic="true"
+        android:requestLegacyExternalStorage="true"
         tools:targetApi="31">
         <activity
-            android:name=".accomodation.scroll.AccFacultyActivity"
+            android:name=".placetogo.PlaceToGoRegionActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".accomodation.scroll.AccHostActivity"
+            android:name=".home.HomeResearchActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity> <!-- 홈 내비게이션 액티비티 ===================================================================================== -->
+        <activity
+            android:parentActivityName=".home.HomeResearchActivity"
+            android:name=".home.Home2Activity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".accomodation.AccMainActivity"
+            android:name=".home.HomeActivity"
             android:exported="true">
 
-      <!--      <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity> <!-- 홈 내비게이션 액티비티 끝 ========================================================================== -->
+        <!-- 네이버 지도 -->
+        <meta-data
+            android:name="com.naver.maps.map.CLIENT_ID"
+            android:value="p11jn9hu1p" /> <!-- 숙소 상세보기 액티비티 ===================================================================================== -->
+        <activity
+            android:name=".accommodation.scroll.AccFacilityActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
         </activity>
+        <activity
+            android:name=".accommodation.scroll.AccHostActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".accommodation.AccMainActivity"
+            android:exported="true" />
+        <activity android:name=".accommodation.scroll.AccFacilityMoreActivity" /> <!-- 숙소 상세보기 끝 ===================================================================================== -->
+        <!-- 로그인 액티비티  ===================================================================================== -->
         <activity
             android:name=".loginrelated.LoginActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="true" />
         <activity
-
             android:name=".Signin4Activity"
-
-            android:exported="true">
-
-        </activity>
-
+            android:exported="true" />
         <activity
             android:name=".SigninDescriptionActivity"
             android:exported="true">
@@ -70,7 +97,6 @@
         <activity
             android:name=".TermsActivity"
             android:exported="true">
-
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -81,7 +107,30 @@
         <activity
             android:name=".TermsContentActivity2"
             android:parentActivityName=".TermsActivity" />
-        <activity android:name=".ReviewReadMoreActivity" /> <!-- 카카오 로그인 화면 뜨는거 -->
+        <activity
+            android:name=".reviewrelated.ReviewReadMoreActivity"
+            android:exported="true" />
+        <activity android:name=".reviewrelated.ReviewPhotosActivity" /> <!-- 테스트옹 홈 화면 ================================ -->
+        <activity
+            android:name=".TestMainActivity"
+            android:exported="true" /> <!-- ================프로필 화면 & 설정 화면 ============= -->
+        <activity android:name=".SettingsActivity" /> <!-- - splash 화면 -->
+        <activity
+            android:name=".SplashActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <!--
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            -->
+        </activity> <!-- 카카오 로그인 화면 뜨는거 -->
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true"
@@ -99,6 +148,20 @@
                     tools:ignore="AppLinkUrlError" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".review.ReviewPostActivity"
+            android:exported="true" />
+
+        <provider
+            android:authorities="com.example.PetSapce_week1"
+            android:name="androidx.core.content.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_path" />
+        </provider>
     </application>
 
 </manifest>
