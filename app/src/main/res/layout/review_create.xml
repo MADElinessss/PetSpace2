@@ -79,18 +79,17 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="숙소 이름"
-                        android:textSize="16sp"
+                        android:text="신라 호텔"
                         android:textColor="@color/black"
-                        />
+                        android:textSize="16sp" />
 
                     <TextView
-                        android:textSize="14sp"
-                        android:paddingTop="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="2022년 12월 02일 ~ 2023년 12월 10일"
-                        android:textColor="@color/black"/>
+                        android:paddingTop="10dp"
+                        android:text="2023년 02월 14일 ~ 2023년 02월 16일"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
                 </LinearLayout>
             </LinearLayout>
 

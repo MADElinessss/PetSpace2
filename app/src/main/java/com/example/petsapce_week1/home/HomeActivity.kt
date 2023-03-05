@@ -9,11 +9,9 @@ import com.example.petsapce_week1.ProfileMenuFragment
 import com.example.petsapce_week1.R
 import com.example.petsapce_week1.databinding.ActivityHomeBinding
 import com.example.petsapce_week1.home.homefragment.HomeFragment
-import com.example.petsapce_week1.home.homefragment.ReserveFragment
 import com.example.petsapce_week1.placetogo.NoLoginPlacetogoFragment
 import com.example.petsapce_week1.placetogo.PlaceToGoFragment
-import com.example.petsapce_week1.reservation.ReservationFragment
-import com.example.petsapce_week1.reservationbcw.reservationMainFragment
+import com.example.petsapce_week1.reservationRelated.reservationMainFragment
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding:ActivityHomeBinding
@@ -36,6 +34,7 @@ class HomeActivity : AppCompatActivity() {
                     }
                     R.id.menu_main_btm_nav_heart -> {
                         val isLogin = LoginCheck()
+                        Log.d("예약 아니고 함께갈곳", "${isLogin}")
                         if(isLogin){
                             supportFragmentManager.beginTransaction()
                                 .replace(R.id.main_frm, PlaceToGoFragment())
@@ -48,10 +47,15 @@ class HomeActivity : AppCompatActivity() {
                         }
                     }
                     R.id.menu_main_btm_nav_reserve -> {
+                        val bundle = Bundle()
+                        val isUserLoggedIn = LoginCheck()
+                        Log.d("dlrjs 예약", "$isUserLoggedIn")
+                        bundle.putBoolean("isLogin", isUserLoggedIn)
+                        val passBundleFragment = reservationMainFragment()
+                        passBundleFragment.arguments = bundle
                         supportFragmentManager.beginTransaction()
-                            .replace(R.id.main_frm, reservationMainFragment())
+                            .replace(R.id.main_frm, passBundleFragment)
                             .commitAllowingStateLoss()
-                        Log.d("예약 화면 switch", "dd")
                     }
                     R.id.menu_main_btm_nav_profile -> {
                         supportFragmentManager.beginTransaction()
@@ -71,13 +75,12 @@ class HomeActivity : AppCompatActivity() {
 
         if(accessToken != "default") {
             isLogin = true
-            return isLogin
         }
         else{
             Log.d("함께 갈 곳", "비었음")
             isLogin = false
-            return isLogin
         }
+        return isLogin
     }
 
     private fun getAccessToken() {

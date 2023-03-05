@@ -151,6 +151,7 @@ class LoginActivity : AppCompatActivity() {
                                 Toast.LENGTH_LONG
                             ).show()
                         }
+
                         val intent = Intent(this@LoginActivity, HomeActivity::class.java)
                         startActivity(intent)
                     }

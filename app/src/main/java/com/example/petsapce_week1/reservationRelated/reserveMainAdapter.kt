@@ -1,4 +1,4 @@
-package com.example.petsapce_week1.reservationbcw
+package com.example.petsapce_week1.reservationRelated
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -11,31 +11,16 @@ import com.example.petsapce_week1.accommodation.AccMainActivity
 import com.example.petsapce_week1.databinding.*
 import com.example.petsapce_week1.review.ReviewPostActivity
 import reserveMainData
-//import kotlinx.android.synthetic.main.activity_acc_main.view.*
-//import kotlinx.android.synthetic.main.home_main_row.view.*
+import java.text.DecimalFormat
 
-class reserveMainAdapter(var items: ArrayList<reserveMainData>) :
+class reserveMainAdapter(var items: List<reserveMainData>) :
     RecyclerView.Adapter<reserveMainAdapter.ViewHolder>() {
-
-/*
-    interface OnItemClickListener {
-        fun OnItemClick(data: reserveMainData)
-//        fun onClick(v: View, position: Int)
-    }
-
-
-    var itemClickListener: OnItemClickListener? = null //초기값 null값
-
-*/
 
     inner class ViewHolder(val binding: ReservationMainRowBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("SetTextI18n")
         fun bind(data: reserveMainData) {
-//            val cut = String.format("%.2f", data.score)
-//            val priceCut = DecimalFormat("#,###")
-//            val price = priceCut.format(data.price)
 
             val springDotsIndicator = binding.dotsIndicator
             val viewPager = binding.childViewPager
@@ -43,11 +28,16 @@ class reserveMainAdapter(var items: ArrayList<reserveMainData>) :
             viewPager.adapter = adapter
             springDotsIndicator.attachTo(viewPager)
 
+            val priceCut = DecimalFormat("#,###")
+            val price = priceCut.format(data.price)
 
             binding.apply {
-//                textPrice.text = "₩${price} / 박"
-                tvAccommoName.text = "상진이네 집"
-                tvReservationDate.text = "2023년 02월 14일 ~ 2023년 02월 16일"
+                tvAccommoName.text = data.roomName
+                tvReservationDate.text = data.date
+                textLoc.text = data.location
+                textPrice.text = "$price 원"
+                textReview.text = "(${data.review})"
+                textScore.text = data.score.toString()
             }
 
         }
@@ -62,6 +52,11 @@ class reserveMainAdapter(var items: ArrayList<reserveMainData>) :
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
+        val accommodation = items[position]
+        holder.bind(accommodation)
+        Log.d("예약 바인드", accommodation.roomName.toString())
+        Log.d("예약 바인드 position", position.toString())
 
         val roomIDNext = items[position].roomID
 
@@ -94,7 +89,7 @@ class reserveMainAdapter(var items: ArrayList<reserveMainData>) :
         return items.size
     }
 
-
 }
+
 
 

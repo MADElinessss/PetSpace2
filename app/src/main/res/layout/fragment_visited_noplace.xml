@@ -19,7 +19,7 @@
             android:layout_gravity="center"
             android:layout_marginBottom="20dp"
             android:fontFamily="@font/bmjua"
-            android:text="아직 예약된 여행일정이 없어요"
+            android:text="아직 방문한 여행일정이 없어요"
             android:textColor="@color/black"
             android:textSize="20dp" />
 

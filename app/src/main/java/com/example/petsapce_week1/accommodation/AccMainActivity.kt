@@ -230,7 +230,6 @@ class AccMainActivity : AppCompatActivity() {
                     )
                 }
 
-
                 if(reviewList.isNotEmpty()){
                     Log.d("숙소 facility 리스트", "${reviewList}")
                     //binding.frameFacility.tvFac0.text = reviewList[0].facname
@@ -259,7 +258,6 @@ class AccMainActivity : AppCompatActivity() {
                         .load(reviewList[5].imgUrl)
                         .into(binding.frameFacility.imgFac6)
                 }
-
             }
 
             override fun onFailure(call: Call<AccomodationData>, t: Throwable) {
