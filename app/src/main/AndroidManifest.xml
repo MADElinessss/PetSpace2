@@ -75,6 +75,7 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <activity android:name=".accommodation.scroll.AccHostViewMoreActivity"/>
         <activity
             android:name=".accommodation.AccMainActivity"
             android:exported="true" />
